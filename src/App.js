@@ -1,19 +1,20 @@
 function App() {
   return (
-    <div className="container">
-      <header className="">
-        <h1 className="hook">
-          A simple link but a powerful tool for your <code className="code">crypto</code> wallet.
-        </h1>
-      </header>
-      <body>
-        <div class="linkdrop">
-            <label className="wallet">Show me what you got!</label>
-            <input className="url" value="wall.io/D35H74" readonly></input>
-            <button className="copy">copy link</button>
+    <div className="container-background">
+      <div className="container">
+        <header>
+          <h1 className="hook">
+            A simple link but a powerful tool for your <code style={{margin:"0 0 0 0.3rem"}}>crypto</code><code className="code"><i class="fas fa-wallet icon"></i></code>
+          </h1>
+        </header>
+        <body className="linkdrop">
+          <div>
+            <input className="url" defaultValue=""></input>
+            <p className="hint">Hint: add your wallet and make it easier to share</p>
           </div>
-      </body>
-      <img src="snips.png" className="logo" alt="snips" />
+          <button className="copy"><i className="fas fa-copy fa-lg link"></i></button>
+        </body>
+      </div>
     </div>
   );
 }
