@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="container">
+      <header className="">
+        <h1 className="hook">
+          A simple link but a powerful tool for your <code className="code">crypto</code> wallet.
+        </h1>
       </header>
+      <body>
+        <div class="linkdrop">
+            <label className="wallet">Show me what you got!</label>
+            <input className="url" value="wall.io/D35H74" readonly></input>
+            <button className="copy">copy link</button>
+          </div>
+      </body>
+      <img src="snips.png" className="logo" alt="snips" />
     </div>
   );
 }
