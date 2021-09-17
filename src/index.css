@@ -14,9 +14,9 @@ code {
 }
 
 .code {
-  margin: 0 0.3rem;
+  margin: 0 0.6rem;
   padding: 0.3rem 0.5rem 0.1rem 0.5rem;
-  background: rgb(1, 21, 49);
+  background: rgb(26, 80, 255);
   border-radius: 0.9rem;
 }
 
@@ -41,7 +41,7 @@ code {
 }
 
 .icon {
-  color: rgb(254, 205, 46);
+  color: white;
 }
 
 .hook {
@@ -78,21 +78,74 @@ code {
   outline: 3px solid transparent;
 }
 
-.copy {
+.cut {
   margin: 0rem;
   height: 2.8rem;
-  border-width: 0.2rem 0.2rem 0.2rem 0rem;
+  border-width: 0.2rem 0rem 0.2rem 0.2rem;
+  border-color: rgb(1, 21, 49);;
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
-  border-radius: 0rem 0.3rem 0.3rem 0rem;
+  border-radius: 0.3rem 0rem 0rem 0.3rem;
+  background: rgb(1, 21, 49);
+  transform: rotate(180deg);
+}
+
+.cut:active {
+  background: black;
+  border-color: black;
 }
 
 .link {
-  color: gray;
+  color: rgb(254, 205, 46);
   margin: 0 1rem 0 1rem;
 }
 
 .hint {
-  font-family: 'Lato light';
+  font-family: 'Lato Black';
   padding-left: 1rem;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+  color: rgba(180, 180, 180, 1);
+}
+
+.list {
+  margin: 0 0 0 11rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.urls {
+  margin: 0rem;
+  width: 15rem;
+  height: 2.8rem;
+  border-width: 0.2rem;
+  border-color: rgb(1, 21, 49);;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
+  border-radius: 0.3rem;
+  background: rgb(1, 21, 49);
+  color: rgb(254, 205, 46);
+  margin: 0.2rem 1rem;
+}
+
+.error {
+  background: rgba(220, 220, 220, 0.4);
+  padding: 1rem;
+  position: absolute;
+  border-radius: 0.5rem;
+  top: 1rem;
+  right: 1rem;
+  color: coral;
+  font-family: 'Lato';
+  font-size: 0.8rem;
+}
+
+.success {
+  background: rgba(220, 220, 220, 0.4);
+  padding: 1rem;
+  position: absolute;
+  border-radius: 0.5rem;
+  top: 1rem;
+  right: 1rem;
+  color: limegreen;
+  font-family: 'Lato';
+  font-size: 0.8rem;
 }
