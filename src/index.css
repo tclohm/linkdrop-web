@@ -99,31 +99,83 @@ code {
   margin: 0 1rem 0 1rem;
 }
 
-.hint {
+.hint-box {
+  display: flex;
+  justify-content: center;
   font-family: 'Lato Black';
-  padding-left: 1rem;
   font-size: 0.8rem;
   color: rgba(180, 180, 180, 1);
+}
+
+.hint {
+  margin: 1rem 5rem 1rem 0;
+}
+
+.clear {
+  margin: 0 0 0 21.5rem;
+  background: transparent;
+  border-width: 0rem;
+  color: black;
+}
+
+.clear:hover {
+  color: blue;
 }
 
 .list {
   margin: 0 0 0 11rem;
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
   flex-direction: column;
 }
 
+.cell {
+  display: flex;
+  width: 80%;
+  margin: 0 0 0.5rem 0;
+}
+
 .urls {
-  margin: 0rem;
-  width: 15rem;
-  height: 2.8rem;
+  width: 45%;
+  padding:  0 0 0 1rem;
   border-width: 0.2rem;
   border-color: rgb(1, 21, 49);;
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
-  border-radius: 0.3rem;
+  text-align: left;
+  border-radius: 0.3rem 0 0 0.3rem;
   background: rgb(1, 21, 49);
   color: rgb(254, 205, 46);
-  margin: 0.2rem 1rem;
+}
+
+.readonly {
+  display: inline-block;
+  padding: 1rem 1rem 0 0;
+  background: white;
+  color: gray;
+  border-width: 0;
+  text-align: right;
+  cursor: not-allowed;
+}
+
+.shortened {
+  display: flex;
+  width: 33%;
+  flex-direction: column;
+  background: white;
+}
+
+.copy {
+  border-width: 0rem;
+  text-align: right;
+  font-size: 1rem;
+  width: 14%;
+  align-self: end;
+  margin: 0rem 0.8rem 1rem 0;
+  background: white;
+}
+
+.copy:hover {
+  color: blue;
 }
 
 .error {
@@ -148,4 +200,17 @@ code {
   color: limegreen;
   font-family: 'Lato';
   font-size: 0.8rem;
+}
+
+.remove {
+  padding: 0.9rem 1rem;
+  background: coral;
+  color: white;
+  border-width: 0;
+  border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.remove:before {
+  content: "\f1f8";  /* this is your text. You can also use UTF-8 character codes as I do here */
+  font-family: FontAwesome;
 }

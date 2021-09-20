@@ -1,6 +1,6 @@
 import Links from "./components/Links";
-import { useState } from "react";
-import useLocalStorage from "./useLocalStorage";
+import { LinkContext } from "./context/LinkContext"
+import { useState, useContext } from "react";
 
 
 function ErrorFeedback({ message }) {
@@ -19,11 +19,11 @@ function SuccessFeedback() {
 function App() {
 
   const [link, setLink] = useState("")
-  const [links, setLinks] = useLocalStorage("links", [])
-
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false) 
   const [message, setMessage] = useState("")
+
+  const { links, addLink, removeLink, clearLinks } = useContext(LinkContext)
 
   const set = (e) => {
     setLink(e.target.value)
@@ -39,17 +39,36 @@ function App() {
       setSuccess(false)
       setMessage("Error: Address improperly formatted")
       animateError()
+      setTimeout(() => {
+        setError(false)
+      }, 3000)
     } else if (links.includes(lowered)) {
         setError(true)
         setSuccess(false)
         setMessage("Error: Address already included in the list below")
         animateError()
+        setTimeout(() => {
+          setError(false)
+        }, 3000)
     } else {
       animate()
-      setLinks([...links, lowered])
+      addLink(lowered)
       setSuccess(true)
       setError(false)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 3000)
     }
+  }
+
+  const remove = (e) => {
+    e.preventDefault();
+    removeLink(e.target.name)
+  }
+
+  const removeAll = (e) => {
+    e.preventDefault();
+    clearLinks();
   }
 
   const animateError = () => {
@@ -95,23 +114,32 @@ function App() {
         <div
          id="form"
          className="linkdrop">
-          <div>
-            <input 
-              className="url" 
-              onChange={e => set(e)}
-              placeholder="https://dribble.com"
-              defaultValue=""></input>
-            <p className="hint">Hint: add your link and make it easier to share</p>
-          </div>
+          <input
+            className="url" 
+            onChange={e => set(e)}
+            placeholder="https://dribble.com"
+            defaultValue="" 
+          />
           <button 
             className="cut"
-            name="copy button"
+            name="copy"
             onClick={e =>  add(e)}
             alt="snippit"
             ><i id="scissors" className="fas fa-cut fa-lg link"></i></button>
         </div>
+        <div className="hint-box">
+          <p className="hint">Hint: add your link and make it easier to share</p>
+          {links.length > 0 ?
+            <button 
+            className="clear"
+            onClick={e => removeAll(e)}
+            >clear all</button>
+            :
+            <></>
+          }
+        </div>
         {
-          links.length > 0 ? <Links links={links} /> : <></>
+          links.length > 0 ? <Links links={links} remove={remove} /> : <></>
         }
       </div>
     </body>
