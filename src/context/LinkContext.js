@@ -1,5 +1,5 @@
 import { useReducer, createContext } from "react";
-import useLocalStorage from "../useLocalStorage";
+//import useLocalStorage from "../useLocalStorage";
 
 export const LinkContext = createContext();
 
@@ -7,14 +7,33 @@ const LINK_ADD = "LINK_ADD";
 const LINK_REMOVE = "LINK_REMOVE";
 const CLEAR = "CLEAR";
 
-const reducer = (state = [], action) => {
+const initialState = [
+	{"Id":"74323c39-e9ef-4a50-a982-f6f943798b49","url":"https://okcoolbeans.com","hash":"74323c"},
+];
 
+
+
+const reducer = (state = initialState, action) => {
 	if (action.type === LINK_ADD) {
-		return [...state, action.payload]
+
+		fetch("http://localhost:8080/new", {
+			method: "POST",
+			body: JSON.stringify({
+				url: action.payload
+			}),
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		}).then(res => res.json())
+		.then(data => {
+			return [...state, data]
+		})
+		.catch(error => console.error("error", error))
+		
 	}
 	else if (action.type === LINK_REMOVE) {
 		return state.filter(link => {
-			return link !== action.payload 
+			return link.url !== action.payload
 		})
 	}
 	else if (action.type === CLEAR) {
@@ -25,25 +44,18 @@ const reducer = (state = [], action) => {
 }
 
 export const LinkProvider = ({ children }) => {
-	const [clientStorage, setClientStorage] = useLocalStorage("links", [])
 
-	const [links, dispatch] = useReducer(reducer, clientStorage);
+	const [links, dispatch] = useReducer(reducer, initialState);
 
 	const addLink = (link) => {
-		setClientStorage([...clientStorage, link])
 		dispatch({
 			type: LINK_ADD,
 			payload: link
-		});
+		})
+
 	};
 
 	const removeLink = (link) => {
-
-		const filtered = clientStorage.filter(clientLink => {
-			return link !== clientLink
-		})
-
-		setClientStorage([...filtered])
 		dispatch({
 			type: LINK_REMOVE,
 			payload: link
@@ -51,7 +63,6 @@ export const LinkProvider = ({ children }) => {
 	};
 
 	const clearLinks = () => {
-		setClientStorage([])
 		dispatch({
 			type: CLEAR
 		});
