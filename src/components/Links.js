@@ -5,7 +5,7 @@ function Links({ links, remove }) {
 				<div key={index} className="cell">
 					<button className="urls"><i className="fas fa-globe"></i> {object.url}</button>
 					<div className="shortened">
-						<div  className="readonly">https://local.com/{object.hash}</div>
+						<div  className="readonly">localhost:8080/{object.hash}</div>
 						<button className="copy">copy</button>
 					</div>
 					<button 
