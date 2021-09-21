@@ -2,7 +2,6 @@ import Links from "./components/Links";
 import { LinkContext } from "./context/LinkContext"
 import { useState, useContext } from "react";
 
-
 function ErrorFeedback({ message }) {
   return (
     <p className="error"><i className="fas fa-exclamation-circle fa-lg"></i> {message}</p>
@@ -20,7 +19,7 @@ function App() {
 
   const [link, setLink] = useState("")
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState(false) 
+  const [err, setErr] = useState(false) 
   const [message, setMessage] = useState("")
 
   const { links, addLink, removeLink, clearLinks } = useContext(LinkContext)
@@ -35,26 +34,26 @@ function App() {
     const address = /(http|https):\/\/[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
 
     if (!lowered.match(address)) {
-      setError(true)
+      setErr(true)
       setSuccess(false)
       setMessage("Error: Address improperly formatted")
       animateError()
       setTimeout(() => {
-        setError(false)
+        setErr(false)
       }, 3000)
     } else if (links.includes(lowered)) {
-        setError(true)
+        setErr(true)
         setSuccess(false)
         setMessage("Error: Address already included in the list below")
         animateError()
         setTimeout(() => {
-          setError(false)
+          setErr(false)
         }, 3000)
     } else {
       animate()
       addLink(lowered)
       setSuccess(true)
-      setError(false)
+      setErr(false)
       setTimeout(() => {
         setSuccess(false)
       }, 3000)
@@ -105,7 +104,7 @@ function App() {
     <body className="container-background">
       <div className="container" id="contained">
         {success ? <SuccessFeedback /> : <></>}
-        {error ? <ErrorFeedback message={message} /> : <></>}
+        {err ? <ErrorFeedback message={message} /> : <></>}
         <div>
           <h1 className="hook">
             A simple link but a powerful tool for your<code className="code"><i className="fab fa-app-store icon"></i></code>
