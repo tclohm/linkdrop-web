@@ -17,7 +17,7 @@ function SuccessFeedback() {
 
 function App() {
 
-  const [link, setLink] = useState("")
+  const [userInput, setUserInput] = useState("")
   const [success, setSuccess] = useState(false)
   const [err, setErr] = useState(false) 
   const [message, setMessage] = useState("")
@@ -25,13 +25,14 @@ function App() {
   const { links, addLink, removeLink, clearLinks } = useContext(LinkContext)
 
   const set = (e) => {
-    setLink(e.target.value)
+    setUserInput(e.target.value)
   }
+
 
   const add = (e) => {
     e.preventDefault()
-    const lowered = link.toLowerCase()
-    const address = /(http|https):\/\/[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/
+    const lowered = userInput.toLowerCase()
+    const address = /(http|https):\/\/[a-zA-Z0-9][a-zA-Z0-9-]{1,61}(?:\.[a-zA-Z]{1,})+/
 
     if (!lowered.match(address)) {
       setErr(true)
@@ -41,23 +42,52 @@ function App() {
       setTimeout(() => {
         setErr(false)
       }, 3000)
-    } else if (links.includes(lowered)) {
-        setErr(true)
-        setSuccess(false)
-        setMessage("Error: Address already included in the list below")
-        animateError()
-        setTimeout(() => {
-          setErr(false)
-        }, 3000)
-    } else {
-      animate()
-      addLink(lowered)
-      setSuccess(true)
-      setErr(false)
-      setTimeout(() => {
-        setSuccess(false)
-      }, 3000)
+      return
     }
+    let duplicate = false;
+    if (links.length > 0) {
+      links.forEach(obj => {
+        if (obj.url === lowered) {
+          duplicate = true;
+          return
+        }
+      })
+    }
+
+    if(duplicate) {
+      setErr(true)
+      setSuccess(false)
+      setMessage("Error: Address already included in the list below")
+      animateError()
+      setTimeout(() => {
+        setErr(false)
+      }, 3000)
+    } else {
+      GET(lowered).then(res => {
+        animate()
+        setSuccess(true)
+        setErr(false)
+        setTimeout(() => {
+          setSuccess(false)
+        }, 3000)
+      })
+    }
+  }
+
+  const GET = async (lowered) => {
+    await fetch("http://localhost:8080/new", {
+      method: "POST",
+      body: JSON.stringify({
+        url: lowered
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    }).then(res => res.json())
+    .then(data => {
+      addLink(data)
+    })
+    .catch(error => console.error("error", error))
   }
 
   const remove = (e) => {
