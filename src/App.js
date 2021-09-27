@@ -143,12 +143,15 @@ function App() {
         <div
          id="form"
          className="linkdrop">
+          <div className="inputs">
           <input
             className="url" 
             onChange={e => set(e)}
             placeholder="https://dribble.com"
             defaultValue="" 
           />
+          {/*<input className="url tag" placeholder="&#xf02b; add a optional tag"/>*/}
+          </div>
           <button 
             className="cut"
             name="copy"
